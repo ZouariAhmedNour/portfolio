@@ -7,107 +7,173 @@
 <meta name="description" content="Ahmed Nour Zouari, étudiant ingénieur en génie logiciel : développement full-stack, mobile et DevOps.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: fixed identity rail on the left, the work scrolls on the right; projects read like entries of an API reference. */
+/* Layout: one night-sky column under a sticky top bar; a fixed starfield sits behind every section. Single dark theme by choice. */
 :root{
-  --bg:#f2f4f8; --surface:#ffffff; --ink:#121a2b; --muted:#56617a; --line:#d9deea;
-  --accent:#1f47c9; --accent-soft:#e3e9fb;
-  --web:#0b6e55; --web-bg:#dcf2ea; --mob:#9a4a07; --mob-bg:#fbe9d5; --api:#1f47c9; --api-bg:#e3e9fb; --ai:#7a2a8c; --ai-bg:#f1e1f5;
+  color-scheme:dark;
+  --bg:#060b1d; --bg2:#0c1838; --surface:rgba(18,30,66,.72); --ink:#eaf0ff; --muted:#a6b3d8; --line:rgba(140,165,235,.22);
+  --accent:#f3d38a; --link:#9fc0ff;
+  --web:#6fd6b6; --web-bg:#12342b; --mob:#f2b072; --mob-bg:#3a2612; --api:#9fc0ff; --api-bg:#1d2a52; --ai:#d79be6; --ai-bg:#35193d;
   --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
   --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0e1320; --surface:#161d2e; --ink:#e8ecf6; --muted:#9aa5bd; --line:#27314a;
-  --accent:#8ea8ff; --accent-soft:#1d2a52;
-  --web:#6fd6b6; --web-bg:#12342b; --mob:#f2b072; --mob-bg:#3a2612; --api:#8ea8ff; --api-bg:#1d2a52; --ai:#d79be6; --ai-bg:#35193d;
-  color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0e1320; --surface:#161d2e; --ink:#e8ecf6; --muted:#9aa5bd; --line:#27314a;
-  --accent:#8ea8ff; --accent-soft:#1d2a52;
-  --web:#6fd6b6; --web-bg:#12342b; --mob:#f2b072; --mob-bg:#3a2612; --api:#8ea8ff; --api-bg:#1d2a52; --ai:#d79be6; --ai-bg:#35193d;
-  color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);margin:0}
-a{color:var(--accent);text-underline-offset:3px}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(180deg,var(--bg),var(--bg2) 60%,var(--bg)) var(--bg);color:var(--ink);font:400 16px/1.65 var(--body);margin:0}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+a{color:var(--link);text-underline-offset:3px}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:40px 64px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:56px}
-.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 32px);align-self:start;display:flex;flex-direction:column;gap:22px}
-.rail h1{font:700 2.5rem/1.02 var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance}
-.role{color:var(--muted);margin:0}
-.status{font:500 .78rem var(--mono);color:var(--web);background:var(--web-bg);padding:5px 10px;border-radius:4px;align-self:flex-start}
-.rail nav{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:18px}
-.rail nav a{font:400 .9rem var(--mono);color:var(--ink);text-decoration:none}
-.rail nav a::before{content:"/";color:var(--accent);margin-right:2px}
-.rail nav a:hover{color:var(--accent)}
-.contact{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px;font-size:.92rem}
-.mail{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.mail span{font:400 .82rem var(--mono);overflow-wrap:anywhere;user-select:all}
-button{font:500 .78rem var(--mono);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:4px 9px;cursor:pointer}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(6,11,29,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1040px;margin:0 auto;padding-inline:20px;display:flex;align-items:center;gap:18px;min-height:58px}
+.brand{font:700 1.05rem var(--display);color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand b{color:var(--accent)}
+.top nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;min-width:0;scrollbar-width:none}
+.top nav a{color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:500;padding:8px 12px;border-radius:999px;white-space:nowrap}
+.top nav a:hover,.top nav a.on{color:var(--bg);background:var(--accent)}
+button{font:500 .78rem var(--mono);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer}
 button:hover{border-color:var(--accent);color:var(--accent)}
-.btn{display:inline-block;background:var(--accent);color:var(--bg);font-weight:600;text-decoration:none;padding:10px 16px;border-radius:4px;align-self:flex-start}
-main{display:flex;flex-direction:column;gap:64px;min-width:0}
-.lead{font:500 clamp(1.5rem,3.2vw,2.15rem)/1.25 var(--display);margin:0;letter-spacing:-.01em;text-wrap:balance}
-.lead + p{color:var(--muted);max-width:62ch;margin:16px 0 0}
-section>h2{font:500 .8rem var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0 0 20px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.projects{display:flex;flex-direction:column;gap:14px}
-.proj{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:12px}
-.proj header{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.page{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:0 56px;display:flex;flex-direction:column;gap:72px}
+.hero{padding-block:72px 8px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.status{font:500 .78rem var(--mono);color:var(--accent);border:1px solid var(--line);padding:5px 12px;border-radius:999px}
+.hero h1{font:700 clamp(2.6rem,8vw,5rem)/1 var(--display);margin:0;letter-spacing:-.03em;text-wrap:balance}
+.hero h1 span{color:var(--accent)}
+.lead{font:500 clamp(1.15rem,2.4vw,1.5rem)/1.4 var(--display);margin:0;max-width:34ch;text-wrap:balance}
+.hero .sub{color:var(--muted);max-width:62ch;margin:0}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.btn{display:inline-block;font-weight:600;text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--accent);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+section{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 80px)}
+section>h2{font:700 clamp(1.6rem,3.6vw,2.1rem)/1.15 var(--display);margin:0 0 24px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"✦";color:var(--accent);font-size:.8em}
+.card,.proj,.xp,.sk{background:var(--surface);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(4px)}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px}
+.minor{display:contents}
+.proj{padding:24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .2s}
+.proj:hover{border-color:var(--accent);transform:translateY(-3px)}
+.proj header{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
 .proj h3{font:700 1.3rem/1.2 var(--display);margin:0 auto 0 0}
-.chip{font:500 .7rem var(--mono);letter-spacing:.06em;padding:3px 8px;border-radius:3px}
+.chip{font:500 .7rem var(--mono);letter-spacing:.06em;padding:3px 9px;border-radius:999px}
 .web{color:var(--web);background:var(--web-bg)}.mob{color:var(--mob);background:var(--mob-bg)}.api{color:var(--api);background:var(--api-bg)}.ai{color:var(--ai);background:var(--ai-bg)}
-.proj p{margin:0;max-width:68ch}
-.ctx{font:400 .8rem var(--mono);color:var(--muted)}
-.stack{font:400 .82rem/1.7 var(--mono);color:var(--muted);margin:0}
-.minor{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.xp{display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--line)}
-.xp:first-of-type{padding-top:0}
-.when{font:400 .82rem var(--mono);color:var(--muted);padding-top:3px}
-.xp h3{font:600 1.05rem var(--body);margin:0}
-.xp .org{color:var(--accent);font-weight:500}
-.xp p{margin:6px 0 0;color:var(--muted);max-width:66ch}
-.skills{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px 24px;margin:0}
-.skills dt{font:400 .82rem var(--mono);color:var(--muted);padding-top:2px}
-.skills dd{margin:0}
+.proj p{margin:0}
+.ctx{font:400 .8rem var(--mono);color:var(--accent)}
+.stack{font:400 .8rem/1.7 var(--mono);color:var(--muted)}
+.proj>a{margin-top:auto;font-weight:500}
+#experiences,#formation{display:flex;flex-direction:column;gap:14px}
+#experiences>h2,#formation>h2{margin-bottom:10px}
+.xp{display:grid;grid-template-columns:160px minmax(0,1fr);gap:6px 24px;padding:20px 24px}
+.when{font:500 .82rem var(--mono);color:var(--accent);padding-top:3px}
+.xp h3{font:600 1.08rem/1.4 var(--body);margin:0}
+.xp .org{color:var(--link)}
+.xp p{margin:8px 0 0;color:var(--muted)}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:0}
+.sk{padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.sk dt{font:500 .8rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+.sk dd{margin:0;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:.88rem;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(159,192,255,.08)}
 ul.plain{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-footer{color:var(--muted);font:400 .8rem var(--mono)}
-@media (max-width:860px){
-  .wrap{grid-template-columns:minmax(0,1fr);gap:40px;padding-block:28px 48px}
-  .rail{position:static}
-  .rail nav{flex-direction:row;flex-wrap:wrap;gap:6px 16px}
-  .xp,.skills{grid-template-columns:minmax(0,1fr)}
-  .skills dt{margin-top:8px}
+.contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+.card{padding:20px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;min-width:0}
+.card .lbl{font:500 .78rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+.card .val{font-weight:500;overflow-wrap:anywhere;user-select:all;max-width:100%}
+footer{color:var(--muted);font:400 .8rem var(--mono);text-align:center}
+@media (max-width:720px){
+  .top .in{flex-wrap:wrap;gap:4px 12px;padding-block:8px}
+  .top nav{order:3;width:100%;margin-left:-8px}
+  #lang{margin-left:auto}
+  .hero{padding-top:44px}
+  .xp{grid-template-columns:minmax(0,1fr)}
+  section{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 120px)}
 }
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.proj{transition:none}}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:40px;align-items:center}
+.hero .txt{display:flex;flex-direction:column;gap:18px;align-items:flex-start;min-width:0}
+.pop{perspective:900px;width:100%;max-width:340px;justify-self:center}
+.pop .tilt{position:relative;aspect-ratio:640/740;transform-style:preserve-3d;transform:rotateY(-14deg) rotateX(6deg);transition:transform .25s ease-out}
+.pop .frame{position:absolute;inset:26% 0 0 0;border-radius:26px;border:1px solid var(--line);background:linear-gradient(160deg,#1c3170,#0b1638);box-shadow:-28px 34px 60px rgba(0,0,0,.55),inset 0 0 0 6px rgba(243,211,138,.12)}
+.pop .glow{position:absolute;inset:38% 12% 6% 12%;border-radius:50%;background:var(--accent);opacity:.22;filter:blur(40px);transform:translateZ(20px)}
+.pop img{position:absolute;left:0;bottom:0;width:100%;height:auto;display:block;border-radius:0 0 26px 26px;transform:translateZ(70px) scale(.93);transform-origin:50% 100%;filter:drop-shadow(-14px 18px 18px rgba(0,0,0,.5))}
+@media (max-width:720px){.hero{grid-template-columns:minmax(0,1fr)}.pop{max-width:240px;order:-1;justify-self:start;margin-left:12px}}
+@media (prefers-reduced-motion:reduce){.pop .tilt{transition:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <aside class="rail">
+<canvas id="sky" aria-hidden="true"></canvas>
+<header class="top"><div class="in">
+  <a class="brand" href="#accueil">Ahmed Nour <b>Zouari</b></a>
+  <nav aria-label="Sections">
+    <a href="#formation" data-en="Education">Formation</a>
+    <a href="#competences" data-en="Technical skills">Compétences techniques</a>
+    <a href="#experiences" data-en="Experience">Expériences</a>
+    <a href="#projets" data-en="Projects">Projets</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button id="lang" type="button" aria-label="Changer de langue / Switch language">EN</button>
+</div></header>
+<div class="page">
+  <div class="hero" id="accueil">
+    <div class="txt">
     <span class="status" data-en="Open to international mobility">Ouvert à une mobilité internationale</span>
-    <h1>Ahmed Nour Zouari</h1>
-    <p class="role" data-en="Software engineering student, 5th year at EPI Sousse. Full-stack, mobile and DevOps.">Étudiant ingénieur en génie logiciel, 5ᵉ année à l'EPI Sousse. Full-stack, mobile et DevOps.</p>
-    <a class="btn" href="Ahmed_Nour_Zouari_CV.pdf" target="_blank" rel="noopener" data-en="Open my résumé (PDF)">Ouvrir mon CV (PDF)</a>
-    <nav aria-label="Sections">
-      <a href="#projets" data-en="projects">projets</a>
-      <a href="#experience" data-en="experience">expérience</a>
-      <a href="#competences" data-en="skills">compétences</a>
-      <a href="#formation" data-en="education">formation</a>
-    </nav>
-    <div class="contact">
-      <div class="mail"><span id="email">zouariahmednour@gmail.com</span><button id="copy" type="button" data-en="Copy">Copier</button></div>
-      <a href="https://github.com/ZouariAhmedNour" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/ahmed-nour-zouari-6a7b3a244/" target="_blank" rel="noopener">LinkedIn</a>
-      <span>Sousse, <span data-en="Tunisia">Tunisie</span></span>
-      <button id="lang" type="button" style="align-self:flex-start" aria-label="Changer de langue / Switch language">EN</button>
+    <h1>Ahmed Nour <span>Zouari</span></h1>
+    <p class="lead" data-en="I build web and mobile applications end to end, from the REST API to cloud deployment.">Je construis des applications web et mobiles de bout en bout, de l'API REST au déploiement cloud.</p>
+    <p class="sub" data-en="Software engineering student, 5th year at EPI Sousse. Three internships on Spring Boot, .NET, React and Flutter products, plus academic projects on architecture and autonomous AI agents.">Étudiant ingénieur en génie logiciel, 5ᵉ année à l'EPI Sousse. Trois stages sur des produits Spring Boot, .NET, React et Flutter, et des projets académiques autour de l'architecture et des agents IA autonomes.</p>
+    <div class="cta">
+      <a class="btn" href="#projets" data-en="See my projects">Voir mes projets</a>
+      <a class="btn ghost" href="Ahmed_Nour_Zouari_CV.pdf" target="_blank" rel="noopener" data-en="Open my résumé (PDF)">Ouvrir mon CV (PDF)</a>
     </div>
-  </aside>
-
-  <main>
-    <div>
-      <p class="lead" data-en="I build web and mobile applications end to end, from the REST API to cloud deployment.">Je construis des applications web et mobiles de bout en bout, de l'API REST au déploiement cloud.</p>
-      <p data-en="Three internships on Spring Boot, .NET, React and Flutter products, plus academic projects on architecture (CQRS, modular design) and autonomous AI agents.">Trois stages sur des produits Spring Boot, .NET, React et Flutter, et des projets académiques autour de l'architecture (CQRS, découpage modulaire) et des agents IA autonomes.</p>
-    </div>
-
-    <section id="projets">
+  </div>
+    <div class="pop"><div class="tilt"><div class="frame"></div><div class="glow"></div><img src="photo.webp" alt="Portrait d'Ahmed Nour Zouari" width="640" height="692"></div></div>
+  </div>
+<section id="formation">
+      <h2 data-en="Education &amp; certifications">Formation et certifications</h2>
+      <div class="xp">
+        <span class="when" data-en="2024 – present">2024 – présent</span>
+        <div><h3><span data-en="Engineering degree, Software Engineering">Cycle ingénieur, Génie Logiciel</span> · <span class="org">EPI Sup, Sousse</span></h3></div>
+      </div>
+      <div class="xp">
+        <span class="when">2020 – 2024</span>
+        <div><h3><span data-en="Bachelor's degree, Computer Systems Engineering">Licence en Ingénierie des Systèmes Informatiques</span> · <span class="org">ISSATSO, Sousse</span></h3></div>
+      </div>
+      <div class="xp" style="border-bottom:0">
+        <span class="when">Certifications</span>
+        <ul class="plain">
+          <li>Azure Fundamentals (AZ-900) · Microsoft</li>
+          <li>AWS Academy Graduate, Cloud Foundations · Amazon Web Services</li>
+          <li><span data-en="Introduction to embedded systems">Introduction aux systèmes embarqués</span> · GOMYCODE</li>
+        </ul>
+      </div>
+    </section>
+<section id="competences">
+      <h2 data-en="Technical skills">Compétences techniques</h2>
+      <dl class="skills">
+        <div class="sk"><dt data-en="Languages">Langages</dt><dd><span class="pill">C#</span><span class="pill">Java</span><span class="pill">Dart</span><span class="pill">TypeScript</span></dd></div>
+        <div class="sk"><dt>Back-end</dt><dd><span class="pill">.NET 6/8</span><span class="pill">Spring Boot</span><span class="pill">Node.js (Express)</span></dd></div>
+        <div class="sk"><dt data-en="Front end &amp; mobile">Front-end et mobile</dt><dd><span class="pill">React</span><span class="pill">React Native</span><span class="pill">Flutter</span></dd></div>
+        <div class="sk"><dt data-en="AI">IA</dt><dd><span class="pill">LangChain</span><span class="pill">LlamaIndex</span><span class="pill">RAG</span><span class="pill">function calling</span></dd></div>
+        <div class="sk"><dt data-en="Databases">Bases de données</dt><dd><span class="pill">SQL Server</span><span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Firebase</span></dd></div>
+        <div class="sk"><dt>Architecture</dt><dd><span class="pill">REST</span><span class="pill">CQRS</span><span class="pill">microservices</span><span class="pill">MediatR</span><span class="pill">AutoMapper</span><span class="pill">FluentValidation</span></dd></div>
+        <div class="sk"><dt data-en="Tools &amp; cloud">Outils et cloud</dt><dd><span class="pill">Git</span><span class="pill">Docker</span><span class="pill">AWS</span><span class="pill">Azure</span><span class="pill">Swagger/OpenAPI</span><span class="pill">CI/CD</span></dd></div>
+      </dl>
+    </section>
+<section id="experiences">
+      <h2 data-en="Experience">Expériences</h2>
+      <div class="xp">
+        <span class="when" data-en="Aug – Sept 2026">Août – sept. 2026</span>
+        <div><h3><span data-en="Full-stack developer, internship">Développeur full-stack, stage</span> · <span class="org">Proxym</span></h3>
+        <p data-en="AI-assisted AML and anti-fraud copilot with Spring Boot, React and React Native: automated detection of high-risk transactions, regulatory reporting, Keycloak authentication, Flyway migrations.">Copilote anti-fraude et anti-blanchiment augmenté par l'IA, en Spring Boot, React et React Native : détection automatisée des transactions à haut risque, reporting LCB-FT, authentification Keycloak, migrations Flyway.</p></div>
+      </div>
+      <div class="xp">
+        <span class="when" data-en="July – Aug 2025">Juil. – août 2025</span>
+        <div><h3><span data-en="Full-stack developer, summer internship">Développeur full-stack, stage d'été</span> · <span class="org">Billcom Consulting</span></h3>
+        <p data-en="Mobile client-server application for centralised contract and user management, with Spring Boot and Flutter: JWT-secured REST APIs, ID document handling, email notifications, and a DevOps setup with Docker, Swagger and CI/CD.">Application mobile client-serveur de gestion centralisée des contrats et des utilisateurs, en Spring Boot et Flutter : API REST sécurisées par JWT, gestion des fichiers CIN, notifications e-mail, et environnement DevOps avec Docker, Swagger et CI/CD.</p></div>
+      </div>
+      <div class="xp">
+        <span class="when" data-en="Feb – June 2024">Févr. – juin 2024</span>
+        <div><h3><span data-en="Mobile developer, final-year internship">Développeur mobile, stage de fin d'études</span> · <span class="org">SimSoft Technologies</span></h3>
+        <p data-en="Internal mobile solution for tracking missions, repair orders and vehicle interventions: REST back end with ASP.NET Core and Entity Framework, Flutter front end with forms, lists and image upload.">Solution mobile interne de suivi des missions, des ordres de réparation et des interventions automobiles : back-end REST en ASP.NET Core et Entity Framework, front-end Flutter avec formulaires, listes et upload d'images.</p></div>
+      </div>
+    </section>
+<section id="projets">
       <h2 data-en="Projects">Projets</h2>
       <div class="projects">
         <article class="proj">
@@ -151,61 +217,16 @@ footer{color:var(--muted);font:400 .8rem var(--mono)}
         </div>
       </div>
     </section>
-
-    <section id="experience">
-      <h2 data-en="Experience">Expérience</h2>
-      <div class="xp">
-        <span class="when" data-en="Aug – Sept 2026">Août – sept. 2026</span>
-        <div><h3><span data-en="Full-stack developer, internship">Développeur full-stack, stage</span> · <span class="org">Proxym</span></h3>
-        <p data-en="AI-assisted AML and anti-fraud copilot with Spring Boot, React and React Native: automated detection of high-risk transactions, regulatory reporting, Keycloak authentication, Flyway migrations.">Copilote anti-fraude et anti-blanchiment augmenté par l'IA, en Spring Boot, React et React Native : détection automatisée des transactions à haut risque, reporting LCB-FT, authentification Keycloak, migrations Flyway.</p></div>
-      </div>
-      <div class="xp">
-        <span class="when" data-en="July – Aug 2025">Juil. – août 2025</span>
-        <div><h3><span data-en="Full-stack developer, summer internship">Développeur full-stack, stage d'été</span> · <span class="org">Billcom Consulting</span></h3>
-        <p data-en="Mobile client-server application for centralised contract and user management, with Spring Boot and Flutter: JWT-secured REST APIs, ID document handling, email notifications, and a DevOps setup with Docker, Swagger and CI/CD.">Application mobile client-serveur de gestion centralisée des contrats et des utilisateurs, en Spring Boot et Flutter : API REST sécurisées par JWT, gestion des fichiers CIN, notifications e-mail, et environnement DevOps avec Docker, Swagger et CI/CD.</p></div>
-      </div>
-      <div class="xp">
-        <span class="when" data-en="Feb – June 2024">Févr. – juin 2024</span>
-        <div><h3><span data-en="Mobile developer, final-year internship">Développeur mobile, stage de fin d'études</span> · <span class="org">SimSoft Technologies</span></h3>
-        <p data-en="Internal mobile solution for tracking missions, repair orders and vehicle interventions: REST back end with ASP.NET Core and Entity Framework, Flutter front end with forms, lists and image upload.">Solution mobile interne de suivi des missions, des ordres de réparation et des interventions automobiles : back-end REST en ASP.NET Core et Entity Framework, front-end Flutter avec formulaires, listes et upload d'images.</p></div>
-      </div>
-    </section>
-
-    <section id="competences">
-      <h2 data-en="Skills">Compétences</h2>
-      <dl class="skills">
-        <dt data-en="Languages">Langages</dt><dd>C#, Java, Dart, TypeScript</dd>
-        <dt>Back-end</dt><dd>.NET 6/8, Spring Boot, Node.js (Express)</dd>
-        <dt data-en="Front end &amp; mobile">Front-end et mobile</dt><dd>React, React Native, Flutter</dd>
-        <dt data-en="AI">IA</dt><dd>LangChain, LlamaIndex, RAG, function calling</dd>
-        <dt data-en="Databases">Bases de données</dt><dd>SQL Server, PostgreSQL, MongoDB, Firebase</dd>
-        <dt>Architecture</dt><dd>REST, CQRS, microservices, MediatR, AutoMapper, FluentValidation</dd>
-        <dt data-en="Tools &amp; cloud">Outils et cloud</dt><dd>Git, Docker, AWS, Azure, Swagger/OpenAPI, CI/CD</dd>
-      </dl>
-    </section>
-
-    <section id="formation">
-      <h2 data-en="Education &amp; certifications">Formation et certifications</h2>
-      <div class="xp">
-        <span class="when" data-en="2024 – present">2024 – présent</span>
-        <div><h3><span data-en="Engineering degree, Software Engineering">Cycle ingénieur, Génie Logiciel</span> · <span class="org">EPI Sup, Sousse</span></h3></div>
-      </div>
-      <div class="xp">
-        <span class="when">2020 – 2024</span>
-        <div><h3><span data-en="Bachelor's degree, Computer Systems Engineering">Licence en Ingénierie des Systèmes Informatiques</span> · <span class="org">ISSATSO, Sousse</span></h3></div>
-      </div>
-      <div class="xp" style="border-bottom:0">
-        <span class="when">Certifications</span>
-        <ul class="plain">
-          <li>Azure Fundamentals (AZ-900) · Microsoft</li>
-          <li>AWS Academy Graduate, Cloud Foundations · Amazon Web Services</li>
-          <li><span data-en="Introduction to embedded systems">Introduction aux systèmes embarqués</span> · GOMYCODE</li>
-        </ul>
-      </div>
-    </section>
-
-    <footer>© 2026 Ahmed Nour Zouari</footer>
-  </main>
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contacts">
+      <div class="card"><span class="lbl">E-mail</span><span class="val" id="email">zouariahmednour@gmail.com</span><button type="button" data-copy="email" data-en="Copy">Copier</button></div>
+      <div class="card"><span class="lbl" data-en="Phone">Téléphone</span><span class="val" id="tel">+216 22 402 285</span><button type="button" data-copy="tel" data-en="Copy">Copier</button></div>
+      <div class="card"><span class="lbl">GitHub</span><a class="val" href="https://github.com/ZouariAhmedNour" target="_blank" rel="noopener">github.com/ZouariAhmedNour</a></div>
+      <div class="card"><span class="lbl">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/ahmed-nour-zouari-6a7b3a244/" target="_blank" rel="noopener">linkedin.com/in/ahmed-nour-zouari</a></div>
+    </div>
+  </section>
+  <footer>© 2026 Ahmed Nour Zouari · Sousse, <span data-en="Tunisia">Tunisie</span></footer>
 </div>
 <script>
 (function(){
@@ -217,12 +238,48 @@ footer{color:var(--muted);font:400 .8rem var(--mono)}
     try{localStorage.setItem('lang',l)}catch(e){}}
   btn.addEventListener('click',function(){set(lang==='fr'?'en':'fr')});
   try{if(localStorage.getItem('lang')==='en')set('en')}catch(e){}
-  var copy=document.getElementById('copy'),mail=document.getElementById('email');
-  copy.addEventListener('click',function(){
-    function done(){copy.textContent=lang==='en'?'Copied':'Copié'}
-    function select(){var r=document.createRange();r.selectNodeContents(mail);var s=getSelection();s.removeAllRanges();s.addRange(r)}
-    try{navigator.clipboard.writeText(mail.textContent).then(done,select)}catch(e){select()}
+  [].forEach.call(document.querySelectorAll('[data-copy]'),function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.dataset.copy);
+      function done(){b.textContent=lang==='en'?'Copied':'Copié'}
+      function select(){var r=document.createRange();r.selectNodeContents(t);var s=getSelection();s.removeAllRanges();s.addRange(r)}
+      try{navigator.clipboard.writeText(t.textContent).then(done,select)}catch(e){select()}
+    });
   });
+  // nav: smooth scroll + highlight of the section in view
+  var links=[].slice.call(document.querySelectorAll('.top nav a'));
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]');if(!a)return;
+    var t=document.getElementById(a.getAttribute('href').slice(1));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){
+      if(en.isIntersecting)links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+en.target.id)});
+    })},{rootMargin:'-30% 0px -60% 0px'});
+    [].forEach.call(document.querySelectorAll('section[id]'),function(s){io.observe(s)});
+  }
+  // starfield
+  var c=document.getElementById('sky'),x=c.getContext('2d'),stars=[],W,H,
+      still=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function size(){var d=Math.min(window.devicePixelRatio||1,2);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0);
+    var n=Math.round(W*H/5500);stars=[];
+    for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()<.08?1.6:Math.random()*.9+.3,p:Math.random()*6.28,s:.4+Math.random()*1.2,g:Math.random()<.15});
+    draw(0)}
+  function draw(t){x.clearRect(0,0,W,H);
+    for(var i=0;i<stars.length;i++){var s=stars[i],a=still?.7:.45+.45*Math.sin(s.p+t*.001*s.s);
+      x.globalAlpha=a;x.fillStyle=s.g?'#f3d38a':'#dfe8ff';x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill();
+      if(s.r>1.5){x.globalAlpha=a*.5;x.fillRect(s.x-4,s.y-.3,8,.6);x.fillRect(s.x-.3,s.y-4,.6,8)}}
+    x.globalAlpha=1}
+  function loop(t){draw(t);requestAnimationFrame(loop)}
+  size();addEventListener('resize',size);if(!still)requestAnimationFrame(loop);
+  // 3D photo: tilts toward the pointer
+  var pop=document.querySelector('.pop'),tilt=pop.querySelector('.tilt');
+  if(!still&&window.matchMedia('(hover:hover)').matches){
+    addEventListener('mousemove',function(e){var r=pop.getBoundingClientRect(),
+      dx=(e.clientX-(r.left+r.width/2))/innerWidth,dy=(e.clientY-(r.top+r.height/2))/innerHeight;
+      tilt.style.transform='rotateY('+(dx*36).toFixed(1)+'deg) rotateX('+(-dy*24).toFixed(1)+'deg)'});
+  }
 })();
 </script>
 </body>
