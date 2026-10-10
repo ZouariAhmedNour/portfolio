@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahmed Nour Zouari</title>
+<meta name="description" content="Ahmed Nour Zouari, étudiant ingénieur en génie logiciel : développement full-stack, mobile et DevOps.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: fixed identity rail on the left, the work scrolls on the right; projects read like entries of an API reference. */
+:root{
+  --bg:#f2f4f8; --surface:#ffffff; --ink:#121a2b; --muted:#56617a; --line:#d9deea;
+  --accent:#1f47c9; --accent-soft:#e3e9fb;
+  --web:#0b6e55; --web-bg:#dcf2ea; --mob:#9a4a07; --mob-bg:#fbe9d5; --api:#1f47c9; --api-bg:#e3e9fb; --ai:#7a2a8c; --ai-bg:#f1e1f5;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1320; --surface:#161d2e; --ink:#e8ecf6; --muted:#9aa5bd; --line:#27314a;
+  --accent:#8ea8ff; --accent-soft:#1d2a52;
+  --web:#6fd6b6; --web-bg:#12342b; --mob:#f2b072; --mob-bg:#3a2612; --api:#8ea8ff; --api-bg:#1d2a52; --ai:#d79be6; --ai-bg:#35193d;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1320; --surface:#161d2e; --ink:#e8ecf6; --muted:#9aa5bd; --line:#27314a;
+  --accent:#8ea8ff; --accent-soft:#1d2a52;
+  --web:#6fd6b6; --web-bg:#12342b; --mob:#f2b072; --mob-bg:#3a2612; --api:#8ea8ff; --api-bg:#1d2a52; --ai:#d79be6; --ai-bg:#35193d;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);margin:0}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:40px 64px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:56px}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 32px);align-self:start;display:flex;flex-direction:column;gap:22px}
+.rail h1{font:700 2.5rem/1.02 var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+.role{color:var(--muted);margin:0}
+.status{font:500 .78rem var(--mono);color:var(--web);background:var(--web-bg);padding:5px 10px;border-radius:4px;align-self:flex-start}
+.rail nav{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:18px}
+.rail nav a{font:400 .9rem var(--mono);color:var(--ink);text-decoration:none}
+.rail nav a::before{content:"/";color:var(--accent);margin-right:2px}
+.rail nav a:hover{color:var(--accent)}
+.contact{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px;font-size:.92rem}
+.mail{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mail span{font:400 .82rem var(--mono);overflow-wrap:anywhere;user-select:all}
+button{font:500 .78rem var(--mono);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:4px 9px;cursor:pointer}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.btn{display:inline-block;background:var(--accent);color:var(--bg);font-weight:600;text-decoration:none;padding:10px 16px;border-radius:4px;align-self:flex-start}
+main{display:flex;flex-direction:column;gap:64px;min-width:0}
+.lead{font:500 clamp(1.5rem,3.2vw,2.15rem)/1.25 var(--display);margin:0;letter-spacing:-.01em;text-wrap:balance}
+.lead + p{color:var(--muted);max-width:62ch;margin:16px 0 0}
+section>h2{font:500 .8rem var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0 0 20px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.projects{display:flex;flex-direction:column;gap:14px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.proj header{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.proj h3{font:700 1.3rem/1.2 var(--display);margin:0 auto 0 0}
+.chip{font:500 .7rem var(--mono);letter-spacing:.06em;padding:3px 8px;border-radius:3px}
+.web{color:var(--web);background:var(--web-bg)}.mob{color:var(--mob);background:var(--mob-bg)}.api{color:var(--api);background:var(--api-bg)}.ai{color:var(--ai);background:var(--ai-bg)}
+.proj p{margin:0;max-width:68ch}
+.ctx{font:400 .8rem var(--mono);color:var(--muted)}
+.stack{font:400 .82rem/1.7 var(--mono);color:var(--muted);margin:0}
+.minor{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.xp{display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--line)}
+.xp:first-of-type{padding-top:0}
+.when{font:400 .82rem var(--mono);color:var(--muted);padding-top:3px}
+.xp h3{font:600 1.05rem var(--body);margin:0}
+.xp .org{color:var(--accent);font-weight:500}
+.xp p{margin:6px 0 0;color:var(--muted);max-width:66ch}
+.skills{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px 24px;margin:0}
+.skills dt{font:400 .82rem var(--mono);color:var(--muted);padding-top:2px}
+.skills dd{margin:0}
+ul.plain{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+footer{color:var(--muted);font:400 .8rem var(--mono)}
+@media (max-width:860px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:40px;padding-block:28px 48px}
+  .rail{position:static}
+  .rail nav{flex-direction:row;flex-wrap:wrap;gap:6px 16px}
+  .xp,.skills{grid-template-columns:minmax(0,1fr)}
+  .skills dt{margin-top:8px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="rail">
+    <span class="status" data-en="Open to international mobility">Ouvert à une mobilité internationale</span>
+    <h1>Ahmed Nour Zouari</h1>
+    <p class="role" data-en="Software engineering student, 5th year at EPI Sousse. Full-stack, mobile and DevOps.">Étudiant ingénieur en génie logiciel, 5ᵉ année à l'EPI Sousse. Full-stack, mobile et DevOps.</p>
+    <a class="btn" href="Ahmed_Nour_Zouari_CV.pdf" target="_blank" rel="noopener" data-en="Open my résumé (PDF)">Ouvrir mon CV (PDF)</a>
+    <nav aria-label="Sections">
+      <a href="#projets" data-en="projects">projets</a>
+      <a href="#experience" data-en="experience">expérience</a>
+      <a href="#competences" data-en="skills">compétences</a>
+      <a href="#formation" data-en="education">formation</a>
+    </nav>
+    <div class="contact">
+      <div class="mail"><span id="email">zouariahmednour@gmail.com</span><button id="copy" type="button" data-en="Copy">Copier</button></div>
+      <a href="https://github.com/ZouariAhmedNour" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/ahmed-nour-zouari-6a7b3a244/" target="_blank" rel="noopener">LinkedIn</a>
+      <span>Sousse, <span data-en="Tunisia">Tunisie</span></span>
+      <button id="lang" type="button" style="align-self:flex-start" aria-label="Changer de langue / Switch language">EN</button>
+    </div>
+  </aside>
+
+  <main>
+    <div>
+      <p class="lead" data-en="I build web and mobile applications end to end, from the REST API to cloud deployment.">Je construis des applications web et mobiles de bout en bout, de l'API REST au déploiement cloud.</p>
+      <p data-en="Three internships on Spring Boot, .NET, React and Flutter products, plus academic projects on architecture (CQRS, modular design) and autonomous AI agents.">Trois stages sur des produits Spring Boot, .NET, React et Flutter, et des projets académiques autour de l'architecture (CQRS, découpage modulaire) et des agents IA autonomes.</p>
+    </div>
+
+    <section id="projets">
+      <h2 data-en="Projects">Projets</h2>
+      <div class="projects">
+        <article class="proj">
+          <header><h3 data-en="AML &amp; anti-fraud copilot">Copilote anti-fraude et anti-blanchiment</h3><span class="chip web">WEB</span><span class="chip mob">MOBILE</span><span class="chip ai">IA</span></header>
+          <span class="ctx" data-en="Proxym internship · 2026 · private code">Stage Proxym · 2026 · code privé</span>
+          <p data-en="A platform for detecting, investigating and reporting money-laundering and fraud cases. High-risk transactions are flagged automatically by predictive models, scheduled jobs produce the regulatory reports, and access is secured with Keycloak and OAuth2.">Plateforme de détection, d'investigation et de reporting LCB-FT. Les transactions à haut risque sont signalées automatiquement par des modèles prédictifs, des tâches planifiées produisent les rapports réglementaires, et l'accès est sécurisé par Keycloak et OAuth2.</p>
+          <p class="stack">Spring Boot · React · React Native · Keycloak / OAuth2 · Flyway · cron</p>
+        </article>
+        <article class="proj">
+          <header><h3>Dammi</h3><span class="chip web">WEB</span><span class="chip mob">MOBILE</span><span class="chip ai">IA</span></header>
+          <span class="ctx" data-en="Year-end project (PFA)">Projet de fin d'année (PFA)</span>
+          <p data-en="A blood donation app that connects donors and requests, with a built-in chatbot based on the Gemini API to answer donors' questions. One Spring Boot back end serves a React web app and a Flutter mobile app, deployed on Azure.">Application de don de sang qui met en relation donneurs et demandes, avec un chatbot intégré basé sur l'API Gemini pour répondre aux questions des donneurs. Un back-end Spring Boot sert une application web React et une application mobile Flutter, déployées sur Azure.</p>
+          <p class="stack">Flutter · React · Spring Boot · Gemini API · Swagger · Docker · Azure</p>
+          <a href="https://github.com/ZouariAhmedNour/Dammi" target="_blank" rel="noopener" data-en="View the code on GitHub">Voir le code sur GitHub</a>
+        </article>
+        <article class="proj">
+          <header><h3>HotelOps</h3><span class="chip web">WEB</span><span class="chip mob">MOBILE</span></header>
+          <span class="ctx" data-en="Hotel management ERP · Maintenance module">ERP de gestion hôtelière · module Maintenance</span>
+          <p data-en="I built the Maintenance module of a hotel ERP suite: tracking of interventions and technical requests. The application follows a feature-based architecture, split into independent, self-contained modules.">J'ai développé le module Maintenance d'une suite ERP hôtelière : suivi des interventions et des demandes techniques. L'application suit une architecture orientée fonctionnalités, découpée en modules indépendants et autonomes.</p>
+          <p class="stack">React · React Native (Expo) · Express.js · Prisma / PostgreSQL · Zod · JWT · Swagger</p>
+        </article>
+        <article class="proj">
+          <header><h3>Agentic IA Suite</h3><span class="chip ai">IA</span></header>
+          <span class="ctx" data-en="Autonomous AI agents">Agents IA autonomes</span>
+          <p data-en="Agents that plan their tasks, call tools dynamically (function calling), analyse large documents with RAG and keep a long-term memory.">Des agents qui planifient leurs tâches, appellent des outils dynamiquement (function calling), analysent des documents volumineux par RAG et conservent une mémoire à long terme.</p>
+          <p class="stack">Python · LangChain · LlamaIndex · ChromaDB · OpenAI API · SQLite</p>
+        </article>
+        <div class="minor">
+          <article class="proj">
+            <header><h3>SmartSupply</h3><span class="chip api">API</span><span class="chip web">WEB</span></header>
+            <p data-en="Inventory management for a small distribution company: products, warehouses, stock and orders, on a CQRS architecture with business validation.">Gestion d'inventaire pour une petite société de distribution : produits, entrepôts, stock et commandes, sur une architecture CQRS avec validation métier.</p>
+            <p class="stack">.NET 8 · EF Core · SQL Server · MediatR · FluentValidation · Azure</p>
+            <a href="https://github.com/ZouariAhmedNour/SmartSupply" target="_blank" rel="noopener" data-en="View the code on GitHub">Voir le code sur GitHub</a>
+          </article>
+          <article class="proj">
+            <header><h3>GarageLink</h3><span class="chip mob">MOBILE</span></header>
+            <p data-en="An ERP application for car repair shops, built with Flutter and Firebase.">Application ERP pour garages automobiles, développée avec Flutter et Firebase.</p>
+            <p class="stack">Flutter · Dart · Firebase</p>
+            <a href="https://github.com/ZouariAhmedNour/GarageLink" target="_blank" rel="noopener" data-en="View the code on GitHub">Voir le code sur GitHub</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 data-en="Experience">Expérience</h2>
+      <div class="xp">
+        <span class="when" data-en="Aug – Sept 2026">Août – sept. 2026</span>
+        <div><h3><span data-en="Full-stack developer, internship">Développeur full-stack, stage</span> · <span class="org">Proxym</span></h3>
+        <p data-en="AI-assisted AML and anti-fraud copilot with Spring Boot, React and React Native: automated detection of high-risk transactions, regulatory reporting, Keycloak authentication, Flyway migrations.">Copilote anti-fraude et anti-blanchiment augmenté par l'IA, en Spring Boot, React et React Native : détection automatisée des transactions à haut risque, reporting LCB-FT, authentification Keycloak, migrations Flyway.</p></div>
+      </div>
+      <div class="xp">
+        <span class="when" data-en="July – Aug 2025">Juil. – août 2025</span>
+        <div><h3><span data-en="Full-stack developer, summer internship">Développeur full-stack, stage d'été</span> · <span class="org">Billcom Consulting</span></h3>
+        <p data-en="Mobile client-server application for centralised contract and user management, with Spring Boot and Flutter: JWT-secured REST APIs, ID document handling, email notifications, and a DevOps setup with Docker, Swagger and CI/CD.">Application mobile client-serveur de gestion centralisée des contrats et des utilisateurs, en Spring Boot et Flutter : API REST sécurisées par JWT, gestion des fichiers CIN, notifications e-mail, et environnement DevOps avec Docker, Swagger et CI/CD.</p></div>
+      </div>
+      <div class="xp">
+        <span class="when" data-en="Feb – June 2024">Févr. – juin 2024</span>
+        <div><h3><span data-en="Mobile developer, final-year internship">Développeur mobile, stage de fin d'études</span> · <span class="org">SimSoft Technologies</span></h3>
+        <p data-en="Internal mobile solution for tracking missions, repair orders and vehicle interventions: REST back end with ASP.NET Core and Entity Framework, Flutter front end with forms, lists and image upload.">Solution mobile interne de suivi des missions, des ordres de réparation et des interventions automobiles : back-end REST en ASP.NET Core et Entity Framework, front-end Flutter avec formulaires, listes et upload d'images.</p></div>
+      </div>
+    </section>
+
+    <section id="competences">
+      <h2 data-en="Skills">Compétences</h2>
+      <dl class="skills">
+        <dt data-en="Languages">Langages</dt><dd>C#, Java, Dart, TypeScript</dd>
+        <dt>Back-end</dt><dd>.NET 6/8, Spring Boot, Node.js (Express)</dd>
+        <dt data-en="Front end &amp; mobile">Front-end et mobile</dt><dd>React, React Native, Flutter</dd>
+        <dt data-en="AI">IA</dt><dd>LangChain, LlamaIndex, RAG, function calling</dd>
+        <dt data-en="Databases">Bases de données</dt><dd>SQL Server, PostgreSQL, MongoDB, Firebase</dd>
+        <dt>Architecture</dt><dd>REST, CQRS, microservices, MediatR, AutoMapper, FluentValidation</dd>
+        <dt data-en="Tools &amp; cloud">Outils et cloud</dt><dd>Git, Docker, AWS, Azure, Swagger/OpenAPI, CI/CD</dd>
+      </dl>
+    </section>
+
+    <section id="formation">
+      <h2 data-en="Education &amp; certifications">Formation et certifications</h2>
+      <div class="xp">
+        <span class="when" data-en="2024 – present">2024 – présent</span>
+        <div><h3><span data-en="Engineering degree, Software Engineering">Cycle ingénieur, Génie Logiciel</span> · <span class="org">EPI Sup, Sousse</span></h3></div>
+      </div>
+      <div class="xp">
+        <span class="when">2020 – 2024</span>
+        <div><h3><span data-en="Bachelor's degree, Computer Systems Engineering">Licence en Ingénierie des Systèmes Informatiques</span> · <span class="org">ISSATSO, Sousse</span></h3></div>
+      </div>
+      <div class="xp" style="border-bottom:0">
+        <span class="when">Certifications</span>
+        <ul class="plain">
+          <li>Azure Fundamentals (AZ-900) · Microsoft</li>
+          <li>AWS Academy Graduate, Cloud Foundations · Amazon Web Services</li>
+          <li><span data-en="Introduction to embedded systems">Introduction aux systèmes embarqués</span> · GOMYCODE</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>© 2026 Ahmed Nour Zouari</footer>
+  </main>
+</div>
+<script>
+(function(){
+  var nodes=[].slice.call(document.querySelectorAll('[data-en]'));
+  nodes.forEach(function(n){n.dataset.fr=n.innerHTML});
+  var btn=document.getElementById('lang'),lang='fr';
+  function set(l){lang=l;nodes.forEach(function(n){n.innerHTML=l==='en'?n.dataset.en:n.dataset.fr});
+    document.documentElement.lang=l;btn.textContent=l==='en'?'FR':'EN';
+    try{localStorage.setItem('lang',l)}catch(e){}}
+  btn.addEventListener('click',function(){set(lang==='fr'?'en':'fr')});
+  try{if(localStorage.getItem('lang')==='en')set('en')}catch(e){}
+  var copy=document.getElementById('copy'),mail=document.getElementById('email');
+  copy.addEventListener('click',function(){
+    function done(){copy.textContent=lang==='en'?'Copied':'Copié'}
+    function select(){var r=document.createRange();r.selectNodeContents(mail);var s=getSelection();s.removeAllRanges();s.addRange(r)}
+    try{navigator.clipboard.writeText(mail.textContent).then(done,select)}catch(e){select()}
+  });
+})();
+</script>
+</body>
+</html>
